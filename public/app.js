@@ -85,17 +85,15 @@ async function init() {
   if (me.loggedIn) {
     state.csrfToken = me.csrfToken;
     safeSetItem("noteTakerCsrf", state.csrfToken);
-    state.expanded = new Set(loadExpanded());
-    showApp();
-    setEditMode(true);
-    await loadTree();
-    await restoreViewState();
   } else {
     state.csrfToken = null;
     safeRemoveItem("noteTakerCsrf");
-    hide("#app");
-    setupLogin(me.configured);
   }
+  state.expanded = new Set(loadExpanded());
+  showApp();
+  setEditMode(state.loggedIn);
+  await loadTree();
+  await restoreViewState();
 }
 
 async function restoreViewState() {
@@ -138,7 +136,6 @@ async function loginSubmit(e) {
     state.loggedIn = true;
     safeSetItem("noteTakerCsrf", state.csrfToken);
     hide("#loginOverlay");
-    showApp();
     setEditMode(true);
     await loadTree();
     await restoreViewState();
@@ -667,12 +664,20 @@ function mainHandlers() {
       state.loggedIn = false;
       safeRemoveItem("noteTakerCsrf");
       setEditMode(false);
-      hide("#app");
+      await loadTree();
+      await restoreViewState();
+    } else {
       setupLogin(state.configured);
     }
   });
   $("#exportBtn").addEventListener("click", exportTree);
   $("#loginForm").addEventListener("submit", loginSubmit);
+  $("#loginOverlay").addEventListener("click", (e) => {
+    if (e.target === $("#loginOverlay")) hideLogin();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !$("#loginOverlay").classList.contains("hidden")) hideLogin();
+  });
   initResizer();
 }
 

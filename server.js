@@ -105,7 +105,6 @@ app.get(
 
 app.get(
   "/api/notes",
-  requireAuth,
   ah(async (req, res) => {
     res.json({ rootId: ROOT_ID, tree: await store.getTree() });
   })
@@ -113,7 +112,6 @@ app.get(
 
 app.get(
   "/api/notes/:id",
-  requireAuth,
   ah(async (req, res) => {
     const note = await store.getNote(req.params.id);
     if (!note) return res.status(404).json({ error: "Note not found" });
