@@ -1,0 +1,19 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal Trilium-style markdown note tree with password auth",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.0",
+    "express": "^4.21.2",
+    "jszip": "^3.10.1",
+    "marked": "^15.0.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "vercel": "^58.9.0"
+  }
+}

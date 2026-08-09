@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoteTaker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="vendor/vditor.min.css" />
+</head>
+<body>
+  <div id="loginOverlay" class="login-overlay hidden">
+    <form id="loginForm" class="login-card">
+      <h1>NoteTaker</h1>
+      <p id="loginMessage"></p>
+      <input id="password" type="password" autocomplete="current-password" placeholder="Password" required />
+      <button type="submit" id="loginButton">Unlock</button>
+    </form>
+  </div>
+
+  <div id="app" class="app">
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <button id="sidebarBtn" title="Toggle sidebar">☰</button>
+        <button id="exportBtn" class="export-btn">Export</button>
+      </div>
+      <div class="top-bar-center">
+        <input id="noteTitle" class="note-title" placeholder="Note title" />
+      </div>
+      <div class="top-bar-right">
+        <button id="authBtn">Log in</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <aside class="sidebar">
+        <div class="tree-wrap">
+          <div id="tree" class="tree"></div>
+        </div>
+        <div class="sidebar-footer">
+          <button id="addChildBtn" title="Add note">+</button>
+          <button id="deleteBtn" class="danger" title="Delete note">-</button>
+        </div>
+      </aside>
+
+      <div class="resizer"></div>
+
+      <main class="main">
+        <div id="editorContainer"></div>
+        <span id="saveState" class="save-state">saved</span>
+      </main>
+    </div>
+  </div>
+
+  <script src="vendor/jszip.min.js"></script>
+  <script src="vendor/vditor.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
